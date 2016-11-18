@@ -65,30 +65,27 @@ extern "C" {
 		}
 
 		/* put sample parameters */
-		c->bit_rate = 400000;
+		c->bit_rate = 4000000;
 		/* resolution must be a multiple of two */
 		c->width = *frameWidth;
 		c->height = *frameHeight;
 		/* frames per second */
-		AVRational r;
-		r.den=1;
-		r.num=25;
-		c->time_base = r;
+		c->time_base = (AVRational) {1, 25};
 		/* emit one intra frame every ten frames
 		 * check frame pict_type before passing frame
 		 * to encoder, if frame->pict_type is AV_PICTURE_TYPE_I
 		 * then gop_size is ignored and the output of encoder
 		 * will always be I frame irrespective to gop_size
 		 */
-		c->gop_size = 10;
+		c->gop_size = 1;
 		c->max_b_frames = 1;
 		c->refs = 0;
 		c->pix_fmt = AV_PIX_FMT_YUV420P; //AV_PIX_FMT_YUV444P;
 
 		// ultrafast,superfast, veryfast, faster, fast, medium, slow, slower, veryslow
-		av_opt_set(c->priv_data, "preset", "ultrafast", 0);
+		av_opt_set(c->priv_data, "preset", "fast", 0);
 		av_opt_set(c->priv_data, "tune", "zerolatency", 0);
-		av_opt_set(c->priv_data, "movflags", "faststart", 0);
+		//av_opt_set(c->priv_data, "movflags", "faststart", 0);
 
 		/* open it */
 		if (avcodec_open2(c, codec, NULL) < 0) {
@@ -119,7 +116,7 @@ extern "C" {
 		sws_ctx = sws_getContext(
 				*desktopWidth,
 				*desktopHeight,
-				AV_PIX_FMT_RGBA,
+				AV_PIX_FMT_BGRA,
 				c->width,
 				c->height,
 				PIX_FMT_YUV420P,
@@ -131,8 +128,11 @@ extern "C" {
 	}
 	void encoder_encodeFrame(unsigned char * srcData[], unsigned char **dstData, unsigned long *frameSize)
 	{
-		
-    const int inLinesize[1] = { 4 * c->width }; // bpp
+		av_init_packet(&pkt);
+		pkt.data = NULL;    // packet data will be allocated by the encoder
+		pkt.size = 0;
+
+		const int inLinesize[1] = { 4 * c->width }; // bpp
 		sws_scale(sws_ctx, (uint8_t const * const *) srcData,	inLinesize, 0, c->height, frame->data, frame->linesize);
 		frame->pts = i;
 		i++;
@@ -145,17 +145,17 @@ extern "C" {
 		}
 
 		if (got_output) {
-			
-      fprintf(stdout, "Write frame (size=%5d)\n", pkt.size);
-      *dstData = pkt.data;
-      *frameSize = pkt.size;
+
+			fprintf(stdout, "Write frame (size=%5d)\n", pkt.size);
+			*dstData = pkt.data;
+			*frameSize = pkt.size;
 		}
 
 	}
 
-  void free_av_packet() {
-			av_free_packet(&pkt);
-  }
+	void free_av_packet() {
+		av_free_packet(&pkt);
+	}
 
 #ifdef __cplusplus
 }
