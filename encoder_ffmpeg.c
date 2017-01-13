@@ -45,11 +45,22 @@ extern "C" {
 
 	uint8_t *yuv[3];
 
+	struct DesktopDimension {
+		int width;
+		int height;
+	};
+	
+	struct DesktopDimension desktop;
+
 	void encoder_init(int *desktopWidth,int *desktopHeight, int *frameWidth,int *frameHeight)
 	{
 		//FFMPEG CODEC INIT
 
 		avcodec_register_all();
+	
+		desktop.width = *desktopWidth;
+		desktop.height = *desktopHeight;
+		fprintf(stdout, "desktop width %i, height %i\n", desktop.width, desktop.height);	
 
 		/* find the mpeg1 video encoder */
 		codec = avcodec_find_encoder(AV_CODEC_ID_H264);
@@ -132,8 +143,10 @@ extern "C" {
 		pkt.data = NULL;    // packet data will be allocated by the encoder
 		pkt.size = 0;
 
-		const int inLinesize[1] = { 4 * c->width }; // bpp
-		sws_scale(sws_ctx, (uint8_t const * const *) srcData,	inLinesize, 0, c->height, frame->data, frame->linesize);
+		//const int inLinesize[1] = { 4 * c->width }; // bpp
+		const int inLinesize[1] = { 4 * desktop.width }; // bpp
+		//sws_scale(sws_ctx, (uint8_t const * const *) srcData,	inLinesize, 0, c->height, frame->data, frame->linesize);
+		sws_scale(sws_ctx, (uint8_t const * const *) srcData,	inLinesize, 0, desktop.height, frame->data, frame->linesize);
 		frame->pts = i;
 		i++;
 		/* encode the image */
