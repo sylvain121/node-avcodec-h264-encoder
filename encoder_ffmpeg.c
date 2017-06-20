@@ -159,7 +159,7 @@ extern "C" {
 
 		if (got_output) {
 
-			fprintf(stdout, "Write frame (size=%5d)\n", pkt.size);
+			//fprintf(stdout, "Write frame (size=%5d)\n", pkt.size);
 			*dstData = pkt.data;
 			*frameSize = pkt.size;
 		}
