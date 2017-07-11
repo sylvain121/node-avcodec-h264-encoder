@@ -4,9 +4,20 @@ var encoder = require('../index.js');
 var chat = fs.readFileSync(__dirname + "/chat.rgba");
 
 var width = 1280;
-var height = 960
+var height = 960;
 
-encoder.initSync(width, height, 800, 600);
+var options = {
+    inputWidth: 1280,
+    inputHeight: 960,
+    outputWidth: 800,
+    outputHeight: 600,
+    bit_rate: 4000000,
+    fps: 25,
+    sample: encoder.YUV_420P
+};
+
+
+encoder.initSync(options);
 
 var net = require('net');
 

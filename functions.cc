@@ -3,15 +3,18 @@
 
 NAN_METHOD(init) {
 
-  if(info.Length() < 4){
+  if(info.Length() < 6){
     return Nan::ThrowError(Nan::TypeError("Too few arguments"));
   }
   int inputWidth = info[0]->NumberValue();
   int inputHeight = info[1]->NumberValue();
   int outputWidth= info[2]->NumberValue();
   int outputHeight = info[3]->NumberValue();
+  int bit_rate = info[4]->NumberValue();
+  int fps = info[5]->NumberValue();  
+  int pix_fmt_int = info[6]->NumberValue();
 
-  encoder_init(&inputWidth, &inputHeight, &outputWidth, &outputHeight);
+  encoder_init(&inputWidth, &inputHeight, &outputWidth, &outputHeight, &bit_rate, &fps, pix_fmt_int);
 
 }
 

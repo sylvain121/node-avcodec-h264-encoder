@@ -16,6 +16,7 @@ extern "C" {
 #include "libavutil/common.h"
 #include "libavutil/imgutils.h"
 #include "libavutil/mathematics.h"
+#include "libavutil/pixfmt.h"
 #include "libavutil/samplefmt.h"
 #include <libswscale/swscale.h>
 
@@ -52,8 +53,9 @@ extern "C" {
 	
 	struct DesktopDimension desktop;
 
-	void encoder_init(int *desktopWidth,int *desktopHeight, int *frameWidth,int *frameHeight)
+	void encoder_init(int *desktopWidth,int *desktopHeight, int *frameWidth,int *frameHeight, int * bit_rate, int * fps, int pix_fmt_int )
 	{
+		
 		//FFMPEG CODEC INIT
 
 		avcodec_register_all();
@@ -76,12 +78,12 @@ extern "C" {
 		}
 
 		/* put sample parameters */
-		c->bit_rate = 4000000;
+		c->bit_rate = *bit_rate;
 		/* resolution must be a multiple of two */
 		c->width = *frameWidth;
 		c->height = *frameHeight;
 		/* frames per second */
-		c->time_base = (AVRational) {1, 25};
+		c->time_base = (AVRational) {1, *fps};
 		/* emit one intra frame every ten frames
 		 * check frame pict_type before passing frame
 		 * to encoder, if frame->pict_type is AV_PICTURE_TYPE_I
@@ -91,7 +93,16 @@ extern "C" {
 		c->gop_size = 1;
 		c->max_b_frames = 1;
 		c->refs = 0;
-		c->pix_fmt = AV_PIX_FMT_YUV420P; //AV_PIX_FMT_YUV444P;
+		//c->pix_fmt = AV_PIX_FMT_YUV420P; //AV_PIX_FMT_YUV444P;
+
+	switch(pix_fmt_int){
+    case 1:
+      c->pix_fmt = AV_PIX_FMT_YUV420P;
+      break;
+    case 2:
+      c->pix_fmt = AV_PIX_FMT_YUV444P;
+      break;
+  } 
 
 		// ultrafast,superfast, veryfast, faster, fast, medium, slow, slower, veryslow
 		av_opt_set(c->priv_data, "preset", "fast", 0);
