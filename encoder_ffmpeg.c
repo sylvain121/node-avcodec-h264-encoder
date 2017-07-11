@@ -105,7 +105,7 @@ extern "C" {
   } 
 
 		// ultrafast,superfast, veryfast, faster, fast, medium, slow, slower, veryslow
-		av_opt_set(c->priv_data, "preset", "fast", 0);
+		av_opt_set(c->priv_data, "preset", "ultrafast", 0);
 		av_opt_set(c->priv_data, "tune", "zerolatency", 0);
 		//av_opt_set(c->priv_data, "movflags", "faststart", 0);
 
