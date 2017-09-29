@@ -108,7 +108,7 @@ extern "C" {
 		av_opt_set(c->priv_data, "preset", "ultrafast", 0);
 		av_opt_set(c->priv_data, "tune", "zerolatency", 0);
 		//av_opt_set(c->priv_data, "movflags", "faststart", 0);
-
+		av_opt_set(c->priv_data, "x264opts", "no-mbtree:sliced-threads:sync-lookahead=0", 0);
 		/* open it */
 		if (avcodec_open2(c, codec, NULL) < 0) {
 			fprintf(stderr, "Could not open codec\n");

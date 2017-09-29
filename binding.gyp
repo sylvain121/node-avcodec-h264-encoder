@@ -13,8 +13,7 @@
       ],
       "cflags" : [
         "-Wall",
-        "-g",
-        "-O0"
+        "-O3"
       ],
       "link_settings": {
         "libraries": [
