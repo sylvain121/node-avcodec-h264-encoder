@@ -107,7 +107,7 @@ extern "C" {
 		// ultrafast,superfast, veryfast, faster, fast, medium, slow, slower, veryslow
 		av_opt_set(c->priv_data, "preset", "ultrafast", 0);
 		av_opt_set(c->priv_data, "tune", "zerolatency", 0);
-		av_opt_set(c->priv_data, "profile", "base", 0);
+		av_opt_set(c->priv_data, "profile", "baseline", 0);
 		//av_opt_set(c->priv_data, "movflags", "faststart", 0);
 		av_opt_set(c->priv_data, "x264opts", "no-mbtree:sliced-threads:sync-lookahead=0", 0);
 		/* open it */
