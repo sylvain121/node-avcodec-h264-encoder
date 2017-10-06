@@ -91,7 +91,7 @@ extern "C" {
 		 * will always be I frame irrespective to gop_size
 		 */
 		c->gop_size = 100;
-		//c->max_b_frames = 1;
+		c->max_b_frames = 0;
 		c->refs = 0;
 		//c->pix_fmt = AV_PIX_FMT_YUV420P; //AV_PIX_FMT_YUV444P;
 
@@ -107,7 +107,8 @@ extern "C" {
 		// ultrafast,superfast, veryfast, faster, fast, medium, slow, slower, veryslow
 		av_opt_set(c->priv_data, "preset", "ultrafast", 0);
 		av_opt_set(c->priv_data, "tune", "zerolatency", 0);
-		av_opt_set(c->priv_data, "profile", "baseline", 0);
+		//av_opt_set(c->priv_data, "profile", "baseline", 0);
+		av_opt_set(c->priv_data, "slices", "4", 0);
 		c->level = 32;
 			//av_opt_set(c->priv_data, "movflags", "faststart", 0);
 		av_opt_set(c->priv_data, "x264opts", "no-mbtree:sliced-threads:sync-lookahead=0", 0);
