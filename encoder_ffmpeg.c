@@ -109,7 +109,7 @@ extern "C" {
 		av_opt_set(c->priv_data, "tune", "zerolatency", 0);
 		//av_opt_set(c->priv_data, "profile", "baseline", 0);
 		av_opt_set(c->priv_data, "slices", "4", 0);
-		c->level = 32;
+		//c->level = 32;
 			//av_opt_set(c->priv_data, "movflags", "faststart", 0);
 		av_opt_set(c->priv_data, "x264opts", "no-mbtree:sliced-threads:sync-lookahead=0", 0);
 		/* open it */
