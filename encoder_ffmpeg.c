@@ -1,15 +1,11 @@
 #include "utils.h"
 // FFMPEG IMPORT
 #include <stdint.h>
-// compatibility with newer API
-
-
-#define av_frame_alloc avcodec_alloc_frame
-#define av_frame_free avcodec_free_frame
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 #include "libavutil/opt.h"
 #include "libavcodec/avcodec.h"
 #include "libavutil/channel_layout.h"
@@ -144,7 +140,7 @@ extern "C" {
 				AV_PIX_FMT_BGRA,
 				c->width,
 				c->height,
-				PIX_FMT_YUV420P,
+				AV_PIX_FMT_YUV420P,
 				SWS_FAST_BILINEAR,
 				NULL,
 				NULL,
