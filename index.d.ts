@@ -14,7 +14,7 @@ declare module 'node-avcodec-h264-encoder' {
     const YUV_420P = 1;
     const YUV_444P = 2;
 
-    function initSync(inputWidth: number, inputHeight: number, outputWidth: number, outputHeight: number, bitrate: number, fps: number, pix_fmt_int: number);
+    function initSync(options: AvcodecH264Encoder);
     function encodeFrameSync(sourceFrame: Buffer): Buffer;
 
 }
