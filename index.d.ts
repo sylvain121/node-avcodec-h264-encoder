@@ -17,6 +17,6 @@ declare module 'node-avcodec-h264-encoder' {
 
     function initSync(options: AvcodecH264Encoder);
     function encodeFrameSync(sourceFrame: Buffer): Buffer;
-    function encodeFrameSync(sourceFrame: Buffer, EncoderCallback);
+    function encodeFrame(sourceFrame: Buffer, cb: EncoderCallback);
 
 }
