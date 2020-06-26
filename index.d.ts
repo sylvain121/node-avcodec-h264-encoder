@@ -13,8 +13,10 @@ declare module 'node-avcodec-h264-encoder' {
 
     const YUV_420P = 1;
     const YUV_444P = 2;
+    type EncoderCallback = (err: Error, frame: Buffer)  => void;   
 
     function initSync(options: AvcodecH264Encoder);
     function encodeFrameSync(sourceFrame: Buffer): Buffer;
+    function encodeFrameSync(sourceFrame: Buffer, EncoderCallback);
 
 }

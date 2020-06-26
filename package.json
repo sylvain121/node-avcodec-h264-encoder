@@ -8,12 +8,11 @@
   "devDependencies": {
     "@types/node": "^14.0.1",
     "mocha": "^3.1.2",
-    "nan": "^2.2.0",
     "node-pre-gyp": "^0.6.19"
   },
   "dependencies": {
     "bindings": "^1.2.1",
-    "nan": "^2.4.0"
+    "nan": "^2.5.1"
   },
   "gypfile": true,
   "name": "node-avcodec-h264-encoder",

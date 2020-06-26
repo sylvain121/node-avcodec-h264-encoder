@@ -147,16 +147,16 @@ extern "C" {
 				NULL
 				);
 	}
-	void encoder_encodeFrame(unsigned char * srcData[], unsigned char **dstData, unsigned long *frameSize)
+	void encoder_encodeFrame(unsigned char * srcData, unsigned char **dstData, unsigned long *frameSize)
 	{
 		av_init_packet(&pkt);
 		pkt.data = NULL;    // packet data will be allocated by the encoder
 		pkt.size = 0;
-
+		unsigned char * srcFrame[1] = {srcData};
 		//const int inLinesize[1] = { 4 * c->width }; // bpp
 		const int inLinesize[1] = { 4 * desktop.width }; // bpp
 		//sws_scale(sws_ctx, (uint8_t const * const *) srcData,	inLinesize, 0, c->height, frame->data, frame->linesize);
-		sws_scale(sws_ctx, (uint8_t const * const *) srcData,	inLinesize, 0, desktop.height, frame->data, frame->linesize);
+		sws_scale(sws_ctx, (uint8_t const * const *) srcFrame,	inLinesize, 0, desktop.height, frame->data, frame->linesize);
 		frame->pts = i;
 		i++;
 		/* encode the image */

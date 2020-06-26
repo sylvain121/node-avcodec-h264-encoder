@@ -20,3 +20,6 @@ module.exports.initSync = function(options) {
 module.exports.encodeFrameSync = function(frameData) {
     return nodeH264Ffmpeg.encodeFrame(frameData);
 }
+module.exports.encodeFrame = function(frameData, callback) {
+    return nodeH264Ffmpeg.encodeFrame(frameData, callback);
+}

@@ -25,4 +25,5 @@ timer = setInterval(function() {
 		var frame = encoder.encodeFrameSync(chat);
 		console.log('encoder time : '+(new Date() -t));
 		console.log('frame length : '+frame.length);
+		console.log('mem : ', process.memoryUsage());
 }, 1000 / 25);

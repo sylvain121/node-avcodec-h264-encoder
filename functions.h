@@ -8,6 +8,7 @@
 // Implementations are in functions.cc
 
 NAN_METHOD(init);
+NAN_METHOD(encodeFrameSync);
 NAN_METHOD(encodeFrame);
 
 //#endif
