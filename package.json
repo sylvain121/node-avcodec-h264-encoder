@@ -7,7 +7,7 @@
   },
   "devDependencies": {
     "@types/node": "^14.0.1",
-    "mocha": "^3.1.2",
+    "mocha": "^10.2.0",
     "node-pre-gyp": "^0.6.19"
   },
   "dependencies": {
